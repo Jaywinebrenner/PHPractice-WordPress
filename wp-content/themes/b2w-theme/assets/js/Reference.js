@@ -9,7 +9,7 @@
 ///CSS - repeat fixed is VERY important
 
 #hero {
-	background: url('/wp-content/themes/bootstrap2wordpress/assets/img/hero-bg.jpg') 50% 0 repeat fixed;
+	background: url('/wp-content/themes/b2w-theme/assets/img/hero-bg.jpg') 50% 0 repeat fixed;
 	min-height: 500px;
 	position: relative;
 	display: table;
