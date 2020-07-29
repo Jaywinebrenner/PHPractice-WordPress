@@ -2,6 +2,24 @@
 
 // Template Name: Home Page
 
+//custom fields
+$prelaunch_price = get_field('prelaunch_price');
+$launch_price = get_field('launch_price');
+$final_price = get_field('final_price');
+$course_url = get_field('course_url');
+$button_text = get_field('button_text');
+$optin_text = get_field('optin_text');
+$optin_button_text = get_field('optin_button_text');
+
+//advanced custom fields
+$income_feature_image = get_field('income_feature_image');
+$income_section_title = get_field('income_section_title');
+$income_section_description = get_field('income_feature_description');
+$income_left_column_title = get_field('income_left_column_title');
+$income_left_column_text = get_field('income_left_column_text');
+$income_right_column_title = get_field('income_right_column_title');
+$income_right_column_text = get_field('income_right_column_text');
+
 get_header();
 ?>
 
@@ -19,21 +37,21 @@ get_header();
           </div>
           
           <div class="col-sm-7 hero-text">
-            <h1>Jay Winebrenner</h1>
-            <p class="lead">Welcome to this website showcases Jay Winebrenner's coding endeavors.</p>
+            <h1><?php bloginfo('name')?></h1>
+            <p class="lead"><?php bloginfo('description')?></p>
             <div id="price-timeline">
 
             <div class="price active">
-              <h4>Price or something<small> Coming soon</small></h4><span>$3.99</span>
+              <h4>Price or something<small> Coming soon</small></h4><span><?php echo $prelaunch_price; ?></span>
             </div>
             <div class="price">
-              <h4>Price or something<small> Coming soon</small></h4><span>$6.99</span>
+              <h4>Price or something<small> Coming soon</small></h4><span><?php echo $launch_price; ?></span>
             </div>
             <div class="price">
-              <h4>Price or something<small> Coming soon</small></h4><span>$12.99</span>
+              <h4>Price or something<small> Coming soon</small></h4><span><?php echo $final_price; ?></span>
             </div>
           </div>
-          <p><a class="btn btn-lg btn-danger" href="/">Click &raquo;</a></p>
+          <p><a class="btn btn-lg btn-danger" href="<?php echo $course_url ?>"><?php echo $button_text?></a></p>
           </div>
         </div>
 
@@ -46,10 +64,10 @@ get_header();
       <div class="container">
         <div class="row">
           <div class="col-sm-8">
-            <p class="lead"><strong>Subscribe to our mailing list</strong>It will bring about world peace</p>
+            <p class="lead"><?php echo $optin_text?></p>
           </div>
           <div class="col-sm-4">
-            <button class="btn btn-success btn-lg btn-block" data-toggle="modal" data-target="#myModal">Click for world peace</button>
+            <button class="btn btn-success btn-lg btn-block" data-toggle="modal" data-target="#myModal"><?php echo $optin_button_text?></button>
           </div>
         </div>
       </div>
@@ -62,25 +80,28 @@ get_header();
     <div class="container">
   
       <div class="section-header">
-        <img src="<?php bloginfo('stylesheet_directory'); ?>/assets/img/icon-boost.png" alt="Chart">
-        <h2>How You Can Boost Your Income</h2>
+
+     
+        <!-- // if user uploaded an image -->
+         <?php if( !empty($income_feature_image)) : ?>
+          <img src="<?php echo $income_feature_image['url'];?>" alt="<?php $income_feature_image['alt'];?>">
+         <?php endif; ?>
+      
+
+        <h2><?php echo $income_section_title; ?></h2>
       </div><!-- section-header -->
   
-      <p class="lead">Whether you&rsquo;re a freelance designer, entrepreneur, employee for a company, code hobbyist, or
-        looking for a new career &mdash; this course gives you an immensely valuable skill that will enable you to either:
+      <p class="lead"><?php echo $income_section_description; ?>
       </p>
       <div class="row">
         <div class="col-sm-6">
-          <h3>Make money on the side</h3>
-          <p>So you can save up for that Hawaiian vacation you&rsquo;ve been wanting, help pay off your debt, your car,
-            your mortgage, or simply just to have bonus cash laying around.</p>
+          <h3><?php echo $income_left_column_title; ?></h3>
+          <p><?php echo $income_left_column_text; ?></p>
         </div><!-- end col -->
   
         <div class="col-sm-6">
-          <h3>Create a full-time income</h3>
-          <p>WordPress developers have options. Many developers make a generous living off of creating custom WordPress
-            themes and selling them on websites like ThemeForest. Freelance designers and developers can also take on
-            WordPress projects and make an extra $1,000 - $5,000+ per month.</p>
+          <h3><?php echo $income_right_column_title; ?></h3>
+          <p><?php echo $income_right_column_text; ?></p>
         </div><!-- end col -->
       </div><!-- row -->
   

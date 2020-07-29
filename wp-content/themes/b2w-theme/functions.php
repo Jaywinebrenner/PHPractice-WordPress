@@ -54,6 +54,8 @@ if ( ! function_exists( 'bootstrap_to_wordpress_setup' ) ) :
 			)
 		);
 
+		add_filter('acf/settings/remove_wp_meta_box', '__return_false');
+
 		/*
 		 * Switch default core markup for search form, comment form, and comments
 		 * to output valid HTML5.
