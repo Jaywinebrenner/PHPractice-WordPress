@@ -29,6 +29,23 @@ $features_section_image = get_field('features_section_image');
 $features_section_title = get_field('features_section_title');
 $features_section_body = get_field('features_section_body');
 
+$project_feature_title = get_field('project_feature_title');
+$project_feature_body = get_field('project_feature_body');
+
+$video_section_title = get_field('video_section_title');
+$video_section_url = get_field('video_section_url');
+
+$instructor_section_title = get_field('instructor_section_title');
+$instructor_name = get_field('instructor_name');
+$bio_excerpt = get_field('bio_excerpt');
+$full_bio = get_field('full_bio');
+$twitter_user_name = get_field('twitter_user_name');
+$facebook_user_name = get_field('facebook_user_name');
+$instagram_user_name = get_field('instagram_user_name');
+$number_of_students = get_field('number_of_students');
+$number_of_reviews = get_field('number_of_reviews');
+$number_of_courses = get_field('number_of_courses');
+
 get_header();
 ?>
 
@@ -185,8 +202,8 @@ get_header();
           <h4><?php the_title(''); ?></h4>
         </div>
 
-      <?php endwhile; ?>
-  
+        <?php endwhile; ?>
+    
 
   
       </div><!-- row -->
@@ -197,28 +214,29 @@ get_header();
   <section id="project-features">
     <div class="container">
   
-      <h2>Final Project Features</h2>
-      <p class="lead">Throughout this entire course, you work towards building an incredibly beautiful website. Want to
-        see the website <strong>you</strong> are going to build? <em>You're looking at it!</em> The website you're using
-        right now is the website you will have built entirely by yourself, by the end of this course.</p>
+      <h2><?php echo $project_feature_title; ?></h2>
+      <p class="lead"><?php echo $project_feature_body; ?></p>
   
       <div class="row">
+        <?php $loop = new WP_Query( array( 'post_type' => 'project_feature',
+        'orderby' => 'post_id', 'order' => 'ASC') ); ?>
+
+        <?php while( $loop->have_posts() ) : $loop->the_post(); ?>
+
         <div class="col-sm-4">
-          <img src="<?php bloginfo('stylesheet_directory'); ?>/assets/img/icon-design.png" alt="Design">
-          <h3>Sexy &amp; Modern Design</h3>
-          <p>You get to work with a modern, professional quality design &amp; layout.</p>
+            <?php 
+                if ( has_post_thumbnail() ) {
+                  the_post_thumbnail();
+                } 
+
+              ?>
+
+
+          <h3><?php the_title(); ?></h3>
+          <p><?php the_content(); ?></p>
         </div><!-- col -->
-        <div class="col-sm-4">
-          <img src="<?php bloginfo('stylesheet_directory'); ?>/assets/img/icon-code.png" alt="Code">
-          <h3>Quality HTML5 &amp; CSS3</h3>
-          <p>You'll learn how hand-craft a stunning website with valid, semantic and beautiful HTML5 &amp; CSS3.</p>
-        </div><!-- col -->
-        <div class="col-sm-4">
-          <img src="<?php bloginfo('stylesheet_directory'); ?>/assets/img/icon-cms.png" alt="CMS">
-          <h3>Easy-to-use CMS</h3>
-          <p>Allow your clients to easily update their websites by converting your static websites to dynamic websites,
-            using WordPress.</p>
-        </div><!-- col -->
+
+        <?php endwhile; ?>
   
       </div><!-- row -->
   
@@ -231,10 +249,10 @@ get_header();
     <div class="container">
       <div class="row">
         <div class="col-sm-8 col-sm-offset-2">
-          <h2>Watch the Course Introduction</h2>
-          <!-- <iframe width="100%" height="415" src="//www.youtube.com/embed/q-mJJsnOHew" frameborder="0"
+          <h2><?php echo $video_section_title; ?></h2>
+          <!-- <iframe width="100%" height="415" src="https://www.youtube.com/embed/JSD8k3JwSVU" frameborder="0"
             allowfullscreen></iframe> -->
-            <iframe width="100%" height="415" src="https://www.youtube.com/embed/JSD8k3JwSVU" frameborder="0"
+            <iframe width="100%" height="415" src="<?php echo $video_section_url?>" frameborder="0"
               allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
         </div><!-- end col -->
       </div><!-- row -->
@@ -249,32 +267,29 @@ get_header();
         <div class="col-sm-8 col-md-6">
           <div class="row">
             <div class="col-lg-8">
-              <h2>Your Instructor <small>Brad Hussey</small></h2>
+              <h2><?php echo $instructor_section_title; ?><small><?php echo $instructor_name; ?></small></h2>
             </div><!-- end col -->
             <div class="col-lg-4">
-              <a href="https://twitter.com/bradhussey" class="badge social twitter" target="_blank"><i class="fab fa-twitter"></i></a>
-              <a href="https://facebook.com/bradhussey" class="badge social facebook" target="_blank"><i class="fab fa-facebook-f"></i></a>
-              <a href="https://facebook.com/bradhussey" class="badge social instagram" target="_blank"><i class="fab fa-instagram"></i></a>
+              <?php if(!empty($twitter_user_name) ) :  ?>
+                <a href="https://twitter.com/<?php echo $twitter_user_name; ?>" class="badge social twitter" target="_blank"><i class="fab fa-twitter"></i></a>
+              <?php endif; ?>
+
+            <?php if(!empty($facebook_user_name) ) :  ?>
+              <a href="https://facebook.com/<?php echo $facebook_user_name; ?>" class="badge social facebook" target="_blank"><i class="fab fa-facebook-f"></i></a>
+              <?php endif; ?>
+
+            <?php if(!empty($instagram_user_name) ) :  ?>
+              <a href="https://www.instagram.com/<?php echo $instagram_user_name; ?>" class="badge social instagram" target="_blank"><i class="fab fa-instagram"></i></a>
+             <?php endif; ?>
+
             </div><!-- end col -->
   
           </div><!-- row -->
   
-          <p class="lead">A highly skilled professional, Brad Hussey is a passionate and experienced web designer,
-            developer, blogger and digital entrepreneur.
+          <p class="lead"><?php echo $bio_excerpt; ?>
           <p>
   
-          <p>Hailing from North Of The Wall (Yellowknife, Canada), Brad made the trek to the Wet Coast (Vancouver, Canada)
-            to educate and equip himself with the necessary skills to become a spearhead in his trade of solving problems
-            on the web, crafting design solutions, and speaking in code.</p>
-  
-          <p>Brad's determination and love for what he does has landed him in some pretty interesting places with some
-            neat people. He's had the privilege of working with, and providing solutions for, numerous businesses, big
-            &amp; small, across the Americas.</p>
-  
-          <p>Brad builds custom websites, and provides design solutions for a wide-array of clientele at his company,
-            Brightside Studios. He regularly blogs about passive income, living your life to the fullest, and provides
-            premium quality web design tutorials and courses for tens of thousands of amazing people desiring to master
-            their craft.</p>
+          <p><?php echo $full_bio; ?></p>
   
           <hr>
   
@@ -283,7 +298,7 @@ get_header();
             <div class="col-xs-4">
               <div class="num">
                 <div class="num-content">
-                  41,000+ <span>students</span>
+                  <?php echo $number_of_students; ?> <span>students</span>
                 </div><!-- num-content -->
               </div><!-- num -->
             </div><!-- end col -->
@@ -291,7 +306,7 @@ get_header();
             <div class="col-xs-4">
               <div class="num">
                 <div class="num-content">
-                  568 <span>reviews</span>
+                  <?php echo $number_of_reviews; ?> <span>reviews</span>
                 </div><!-- num-content -->
               </div><!-- num -->
             </div><!-- end col -->
@@ -299,7 +314,7 @@ get_header();
             <div class="col-xs-4">
               <div class="num">
                 <div class="num-content">
-                  8 <span>courses</span>
+                  <?php echo $number_of_courses; ?> <span>courses</span>
                 </div><!-- num-content -->
               </div><!-- num -->
             </div><!-- end col -->
